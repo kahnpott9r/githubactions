@@ -7,6 +7,7 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
 
 jobs:
   system-info:
@@ -16,17 +17,17 @@ jobs:
 
     steps:
       - name: operation system
-      - run: lsb_release -a
+        run: lsb_release -a
 
       - name: current user
-      - run: whoami
+        run: whoami
 
       - name: available disk space
-      - run: df -h
+        run: df -h
 
       - name: memory information
-      - run: free -h
+        run: free -h
 
       - name: check GITHUB_WORKSPACE
-      - run: printenv GITHUB_WORKSPACE
+        run: printenv GITHUB_WORKSPACE
 
