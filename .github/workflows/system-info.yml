@@ -1,0 +1,32 @@
+
+name: Systen Information Action
+
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  system-info:
+    name: Show system information
+    runs-on: ubuntu-latest
+ 
+
+    steps:
+      - name: operation system
+      - run: lsb_release -a
+
+      - name: current user
+      - run: whoami
+
+      - name: available disk space
+      - run: df -h
+
+      - name: memory information
+      - run: free -h
+
+      - name: check GITHUB_WORKSPACE
+      - run: printenv GITHUB_WORKSPACE
+
