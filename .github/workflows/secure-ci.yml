@@ -32,12 +32,12 @@ jobs:
           REPO: ${{ github.repository  }}
           ACTOR: ${{ github.actor }}
           BRANCH: ${{ github.ref_name }}
-          ENVENT: ${{ github.event_name }}
+          EVENT: ${{ github.event_name }}
         run: |
-          echo 'repo: $REPO'
-          echo 'actor: $ACTOR'
-          echo 'branch: $BRANCH'
-          echo 'event: $EVENT'
+          echo "repo: $REPO"
+          echo "actor: $ACTOR"
+          echo "branch: $BRANCH"
+          echo "event: $EVENT"
 
   build:
     name: Build application
@@ -69,7 +69,7 @@ jobs:
       - name: build summary
         if: success()
         run: |
-          echo 'application: $APP_NAME'
+          echo "application: $APP_NAME"
           echo 'enviroment: $APP_ENV'
           echo 'Node: $NODE_ENV'
 
