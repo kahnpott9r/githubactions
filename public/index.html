@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Dự án Node.js + Express để học CI/CD với GitHub Actions" />
+    <title>CI/CD Playground</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="orb orb-a" aria-hidden="true"></div>
+    <div class="orb orb-b" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">🚀</span>
+        <div>
+          <strong>CI/CD Playground</strong>
+          <small>Node.js · Express · GitHub Actions</small>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span id="env-badge" class="badge">đang tải…</span>
+        <a class="badge ghost" href="/api/health" target="_blank" rel="noreferrer">/api/health</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Học CI/CD bằng dự án thật</p>
+        <h1>Code xong là <span class="gradient-text">pipeline chạy</span>.</h1>
+        <p class="hero-desc">
+          Đây là một app Node.js cơ bản có giao diện web, API, test tự động và workflow
+          GitHub Actions. Sửa code, push lên GitHub và xem pipeline làm việc.
+        </p>
+        <div class="hero-actions">
+          <button id="refresh-btn" class="btn primary" type="button">↻ Làm mới dữ liệu</button>
+          <a class="btn" href="#pipeline">Xem pipeline mẫu</a>
+          <a class="btn" href="/api/todos" target="_blank" rel="noreferrer">Xem API JSON</a>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Thông tin ứng dụng">
+        <article class="stat card">
+          <span class="stat-icon">🟢</span>
+          <span class="stat-label">Môi trường</span>
+          <strong id="stat-env" class="stat-value">…</strong>
+        </article>
+        <article class="stat card">
+          <span class="stat-icon">🟩</span>
+          <span class="stat-label">Node.js</span>
+          <strong id="stat-node" class="stat-value">…</strong>
+        </article>
+        <article class="stat card">
+          <span class="stat-icon">🔖</span>
+          <span class="stat-label">Commit</span>
+          <strong id="stat-commit" class="stat-value">…</strong>
+        </article>
+        <article class="stat card">
+          <span class="stat-icon">⏱️</span>
+          <span class="stat-label">Uptime</span>
+          <strong id="stat-uptime" class="stat-value">…</strong>
+        </article>
+      </section>
+
+      <div class="columns">
+        <section class="card">
+          <div class="card-head">
+            <h2>Việc cần làm</h2>
+            <span class="muted" id="todo-count">0 việc</span>
+          </div>
+
+          <form id="todo-form" class="todo-form" autocomplete="off">
+            <input
+              id="todo-input"
+              name="title"
+              type="text"
+              maxlength="120"
+              placeholder="Thêm một việc bạn muốn học…"
+              aria-label="Tên công việc"
+            />
+            <button class="btn primary" type="submit">Thêm</button>
+          </form>
+
+          <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+          <p id="todo-empty" class="empty" hidden>Chưa có việc nào. Thêm việc đầu tiên đi! 🎯</p>
+          <p class="muted small">
+            Dữ liệu chỉ lưu trong bộ nhớ — khởi động lại server sẽ reset. Đây là chỗ
+            hoàn hảo để thực hành viết test API.
+          </p>
+        </section>
+
+        <section class="card" id="pipeline">
+          <div class="card-head">
+            <h2>Pipeline mẫu</h2>
+            <span class="badge success">ci.yml</span>
+          </div>
+          <ol class="pipeline">
+            <li class="pipeline-step done">
+              <span class="dot"></span>
+              <div>
+                <strong>Checkout</strong>
+                <p>Lấy code từ repository về runner.</p>
+              </div>
+              <span class="pill">actions/checkout</span>
+            </li>
+            <li class="pipeline-step done">
+              <span class="dot"></span>
+              <div>
+                <strong>Install</strong>
+                <p>Cài dependencies chính xác bằng <code>npm ci</code>.</p>
+              </div>
+              <span class="pill">npm ci</span>
+            </li>
+            <li class="pipeline-step done">
+              <span class="dot"></span>
+              <div>
+                <strong>Test</strong>
+                <p>Chạy unit test với Node Test Runner.</p>
+              </div>
+              <span class="pill">npm test</span>
+            </li>
+            <li class="pipeline-step running">
+              <span class="dot"></span>
+              <div>
+                <strong>Build</strong>
+                <p>Đóng gói thư mục <code>dist/</code> và lưu artifact.</p>
+              </div>
+              <span class="pill">npm run build</span>
+            </li>
+            <li class="pipeline-step">
+              <span class="dot"></span>
+              <div>
+                <strong>Deploy</strong>
+                <p>Bước tiếp theo của bạn — thử deploy lên một server thật.</p>
+              </div>
+              <span class="pill">bài tập</span>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>API để thực hành</h2>
+          <span class="muted">Dùng curl, Postman hoặc chính giao diện này</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Mô tả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="method get">GET</span></td><td><code>/api/health</code></td><td>Health check cho CI/CD và monitoring</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><code>/api/info</code></td><td>Thông tin build, commit, môi trường</td></tr>
+              <tr><td><span class="method get">GET</span></td><td><code>/api/todos</code></td><td>Danh sách công việc</td></tr>
+              <tr><td><span class="method post">POST</span></td><td><code>/api/todos</code></td><td>Thêm việc — body: <code>{ "title": "..." }</code></td></tr>
+              <tr><td><span class="method patch">PATCH</span></td><td><code>/api/todos/:id</code></td><td>Đánh dấu xong — body: <code>{ "done": true }</code></td></tr>
+              <tr><td><span class="method delete">DELETE</span></td><td><code>/api/todos/:id</code></td><td>Xoá công việc</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card build-info">
+        <div class="card-head">
+          <h2>Dấu vết build</h2>
+          <span class="muted">Được bơm từ biến môi trường của GitHub Actions</span>
+        </div>
+        <pre id="build-info">Đang tải…</pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made for learning CI/CD · Chạy <code>npm run dev</code> để phát triển</p>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

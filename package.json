@@ -1,17 +1,28 @@
 {
-  "name": "my-project",
+  "name": "ci-cd-playground",
   "version": "1.0.0",
-  "description": "A clean starter package.json for web projects",
-  "main": "index.js",
+  "description": "Ứng dụng Node.js + Express có giao diện web để học CI/CD với GitHub Actions",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "echo \"Building project...\" && exit 0"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "build": "node scripts/build.js",
+    "smoke": "node scripts/smoke.js"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "express",
+    "ci-cd",
+    "github-actions",
+    "learning"
+  ],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "express": "^4.19.2"
   },
