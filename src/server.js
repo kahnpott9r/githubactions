@@ -5,7 +5,7 @@ const app = require('./app');
 const port = Number(process.env.PORT) || 3000;
 
 const server = app.listen(port, () => {
-  console.log(`🚀 CI/CD Playground đang chạy tại http://localhost:${port}`);
+  console.log(`🚀 CI/CD Playground locnv đang chạy tại http://localhost:${port}`);
   console.log(`   Môi trường: ${process.env.NODE_ENV || 'development'}`);
 });
 

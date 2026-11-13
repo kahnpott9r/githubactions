@@ -1,4 +1,4 @@
-# 🚀 CI/CD Playground
+# 🚀 CI/CD Playground locnv
 
 Một ứng dụng **Node.js + Express** có giao diện web, được tạo để bạn **học CI/CD bằng cách làm thật**: sửa code → push lên GitHub → xem pipeline tự động test, build và đóng gói.
 
